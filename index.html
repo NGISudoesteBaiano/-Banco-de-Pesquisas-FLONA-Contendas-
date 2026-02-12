@@ -241,6 +241,7 @@
         { ano: "2025", cat: "Manejo/Outros", titulo: "Floresta Nacional Contendas do Sincorá: usos sustentáveis", link: "https://icmbioe5-my.sharepoint.com/:b:/g/personal/leia_souza_icmbio_gov_br/IQBUzOnL_KX0RoPFM0aScNgtAQ63-YojNU0m4MowoR60pQI?e=0VEocJ" }
     ];
 
+    // Função de filtro
     function filterData() {
         const ano = document.getElementById('filterAno').value;
         const term = document.getElementById('searchTerm').value.toLowerCase();
@@ -251,15 +252,24 @@
         const filtered = db.filter(d => {
             const mAno = (ano === "" || d.ano === ano);
             const mTerm = d.titulo.toLowerCase().includes(term);
-            const mCat = (d.cat === 'Fauna' && fFauna) || (d.cat === 'Flora' && fFlora) || (d.cat === 'Manejo/Outros' && fOutros);
+            const mCat = (d.cat === 'Fauna' && fFauna) || 
+                         (d.cat === 'Flora' && fFlora) || 
+                         (d.cat === 'Manejo/Outros' && fOutros);
             return mAno && mTerm && mCat;
         });
         render(filtered);
     }
 
+    // Função para renderizar a tabela
     function render(data) {
         const tbody = document.querySelector('#dataTable tbody');
         document.getElementById('kpiTotal').innerText = data.length;
+        
+        if (data.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="4" class="text-center py-4">Nenhum resultado encontrado.</td></tr>';
+            return;
+        }
+
         tbody.innerHTML = data.map(d => `
             <tr>
                 <td class="fw-bold text-success">${d.ano}</td>
@@ -267,13 +277,24 @@
                 <td>${d.titulo}</td>
                 <td class="text-center"><a href="${d.link}" target="_blank" rel="noopener noreferrer" class="btn-link-download">Abrir</a></td>
             </tr>
-        `).join('') || '<tr><td colspan="4" class="text-center py-4">Nenhum resultado.</td></tr>';
+        `).join('');
     }
 
-    const anos = [...new Set(db.map(d => d.ano))].sort((a, b) => b - a);
-    const sel = document.getElementById('filterAno');
-    anos.forEach(a => sel.innerHTML += `<option value="${a}">${a}</option>`);
-    render(db);
+    // Inicialização ao carregar a página
+    document.addEventListener('DOMContentLoaded', () => {
+        // Popula o select de anos
+        const anos = [...new Set(db.map(d => d.ano))].sort((a, b) => b - a);
+        const sel = document.getElementById('filterAno');
+        anos.forEach(a => {
+            const option = document.createElement('option');
+            option.value = a;
+            option.textContent = a;
+            sel.appendChild(option);
+        });
+
+        // Chama o filtro inicial para exibir todos os dados
+        filterData();
+    });
 </script>
 </body>
 </html>
