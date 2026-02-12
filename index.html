@@ -27,9 +27,9 @@
             text-align: center; padding: 25px; border-radius: 15px;
         }
 
-        /* --- AJUSTE DE FONTE PARA COMPUTADOR (TELAS GRANDES) --- */
+        /* AJUSTE DE FONTE PARA COMPUTADOR */
         @media (min-width: 992px) {
-            #dataTable td { font-size: 1.2rem; padding: 18px 15px; } /* Fonte maior na tabela */
+            #dataTable td { font-size: 1.2rem; padding: 18px 15px; } 
             #dataTable th { font-size: 1.1rem; padding: 18px 15px; }
             .btn-link-download { padding: 10px 20px !important; font-size: 1rem !important; }
             .form-label { font-size: 1.1rem !important; }
@@ -37,7 +37,7 @@
             .titulo-secao { font-size: 1.6rem; }
         }
         
-        /* Ajuste para Celular (Mantendo legibilidade) */
+        /* Ajuste para Celular */
         @media (max-width: 991px) {
             #dataTable td { font-size: 0.9rem; padding: 12px; }
             #dataTable th { font-size: 0.8rem; padding: 12px; }
@@ -105,7 +105,7 @@
         
         <div class="col-12 col-xl-3">
             <div class="kpi-card shadow-sm h-100 d-flex flex-column justify-content-center">
-                <h6 class="text-uppercase small opacity-75 fw-bold mb-1">Total Encontrado</h6>
+                <h6 class="text-uppercase small opacity-75 fw-bold mb-1">Total de Pesquisas Catalogadas</h6>
                 <h1 id="kpiTotal" class="display-4 fw-bold m-0">0</h1>
             </div>
         </div>
@@ -121,7 +121,7 @@
                         <th class="text-center" style="width: 100px;">Ano</th>
                         <th style="width: 150px;">Área</th>
                         <th>Título da Pesquisa</th>
-                        <th class="text-center" style="width: 150px;">Link</th>
+                        <th class="text-center" style="width: 150px;">Acesso</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -131,7 +131,6 @@
 </div>
 
 <script>
-    // BANCO DE DADOS (Inalterado)
     const db = [
         { ano: "1999", cat: "Flora", titulo: "Composição florística e fitossociologia de uma área de Caatinga em Contendas do Sincorá, Bahia", link: "https://icmbioe5-my.sharepoint.com/:b:/g/personal/leia_souza_icmbio_gov_br/IQAy0MLg9cRzRLXu5Qxn3cMqAYdbQnFP_BTO1SmS6VcLQbU?e=ou8Uha" },
         { ano: "2006", cat: "Manejo/Outros", titulo: "Produção de xilanase por fungos filamentosos isolados de solo de área de caatinga", link: "https://icmbioe5-my.sharepoint.com/:b:/g/personal/leia_souza_icmbio_gov_br/IQBo0YHHpnjsT7u7h7SzKMRxATn9Sj0VyBOUebzmzaRXe9w?e=6Q9ByH" },
@@ -166,7 +165,7 @@
         { ano: "2015", cat: "Fauna", titulo: "Escorpiões do complexo Tityus stigmurus (Buthidae): delimitação de espécies", link: "https://icmbioe5-my.sharepoint.com/:b:/g/personal/leia_souza_icmbio_gov_br/IQBxqJigg9g3RZHS4ebiJ-0SAU2Ho44TFZVL7qIwKOOCDrw?e=ESUPo0" },
         { ano: "2015", cat: "Fauna", titulo: "Notas sobre interações competitivas envolvendo formigas poneromorfas", link: "https://icmbioe5-my.sharepoint.com/:b:/g/personal/leia_souza_icmbio_gov_br/IQB1Be5M0xLXQblhzsm_HYe_AaNzwFx-rivV6DQvJdii-us?e=KGLPgr" },
         { ano: "2015", cat: "Fauna", titulo: "Bioatividade da raiz de Poincianella bracteosa sobre larvas de Aedes aegypti", link: "https://icmbioe5-my.sharepoint.com/:b:/g/personal/leia_souza_icmbio_gov_br/IQBXa4sCzNO0SZ-e1N8ItXnhAQQudFx9P4totD3bd36ki_g?e=4p5ojQ" },
-        { ano: "2015", cat: "Fauna", titulo: "Estratégias de competição entre espécies de formigas em fragmento de Caatinga", link: "https://icmbioe5-my.sharepoint.com/:b:/g/personal/leia_souza_icmbio_gov_br/IQCuwl76mZBUQp_DaAg-4u4JAWyr3oJ7JA9x6PKKWxyXbgQ?e=P1dED8" },
+        { ano: "2015", cat: "Fauna", titulo: "Estratégias de competition entre espécies de formigas em fragmento de Caatinga", link: "https://icmbioe5-my.sharepoint.com/:b:/g/personal/leia_souza_icmbio_gov_br/IQCuwl76mZBUQp_DaAg-4u4JAWyr3oJ7JA9x6PKKWxyXbgQ?e=P1dED8" },
         { ano: "2015", cat: "Flora", titulo: "Estudos genético-moleculares em Croton heliotropiifolius e Croton linearifolius", link: "https://icmbioe5-my.sharepoint.com/:b:/g/personal/leia_souza_icmbio_gov_br/IQBERqhE_7GCS43O4uxyD68DAS5i0vw_x6xfy_7-QyymBvU?e=reWUwq" },
         { ano: "2015", cat: "Flora", titulo: "Genetic diversity in populations of Maytenus truncata Reiss, 1861", link: "https://icmbioe5-my.sharepoint.com/:b:/g/personal/leia_souza_icmbio_gov_br/IQCcxl6vsdHnTIcBTyUWfu3LAYfJuQTnHUHKezYQxbdw3H8?e=hGuYV6" },
         { ano: "2015", cat: "Flora", titulo: "Avaliação da atividade anti-inflamatória das frações da folha de Cenostigma cf. macrophyllum", link: "https://icmbioe5-my.sharepoint.com/:b:/g/personal/leia_souza_icmbio_gov_br/IQCWwHGOtoiORrObkYTUjhIcAT7N4tYLvhUxpjC2pvZY4lc?e=W3tt3T" },
@@ -303,7 +302,7 @@
                 <td class="fw-bold text-success text-center">${d.ano}</td>
                 <td><span class="badge ${d.cat === 'Fauna' ? 'badge-fauna' : (d.cat === 'Flora' ? 'badge-flora' : 'badge-outros')}">${d.cat}</span></td>
                 <td>${d.titulo}</td>
-                <td class="text-center"><a href="${d.link}" target="_blank" rel="noopener" class="btn-link-download">Ver PDF</a></td>
+                <td class="text-center"><a href="${d.link}" target="_blank" rel="noopener" class="btn-link-download">Abrir</a></td>
             </tr>
         `).join('');
     }
